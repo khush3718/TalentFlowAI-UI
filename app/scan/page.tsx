@@ -12,7 +12,7 @@
 
   // Configure your backend endpoint (client-visible env var)
   const BACKEND_SCAN_URL =
-    process.env.NEXT_PUBLIC_BACKEND_SCAN_URL || "http://localhost:8000/api/v1/complete-analysis"
+    process.env.NEXT_PUBLIC_BACKEND_SCAN_URL || "https://talentflowai.onrender.com"
 
   export default function ScanPage() {
     const router = useRouter()
