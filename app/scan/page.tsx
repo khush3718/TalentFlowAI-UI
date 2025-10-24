@@ -11,8 +11,7 @@
   const SCAN_RESULT_KEY = "scan-result"
 
   // Configure your backend endpoint (client-visible env var)
-  const BACKEND_SCAN_URL =
-    process.env.NEXT_PUBLIC_BACKEND_SCAN_URL || "https://talentflowai.onrender.com/api/v1/complete-analysis"
+  const BACKEND_SCAN_URL = "https://talentflowai.onrender.com/api/v1/complete-analysis"
 
   export default function ScanPage() {
     const router = useRouter()
