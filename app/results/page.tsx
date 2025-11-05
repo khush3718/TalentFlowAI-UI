@@ -12,6 +12,7 @@
   import { jsPDF } from "jspdf";
 
   const SCAN_RESULT_KEY = "scan-result"
+  const REPORT_DOWNLOAD_URL = "https://talentflowai.onrender.com/api/v1/generate-report"
 
   interface ReportResponse {
   generated_report_text: string;
@@ -143,7 +144,7 @@ function getScoreRingClasses(score: number): string {
 
   try {
     // 1️⃣ Call backend to generate report text
-    const response = await fetch("http://localhost:8000/api/v1/generate-report", {
+    const response = await fetch(REPORT_DOWNLOAD_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ analysis_data: data }),
