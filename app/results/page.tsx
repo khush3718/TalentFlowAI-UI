@@ -6,7 +6,9 @@
   import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
   import { Badge } from "@/components/ui/badge"
   import { Button } from "@/components/ui/button"
-  import { Mail, Phone, MapPin, User } from "lucide-react";
+  import { Mail, Phone, MapPin, User, Briefcase,
+  GraduationCap,
+  Calendar, } from "lucide-react";
 
   const SCAN_RESULT_KEY = "scan-result"
 
@@ -21,6 +23,20 @@
     priority: "high" | "medium" | "low"
   }
 
+  type WorkExperience = {
+  company: string
+  role: string
+  duration: string
+  years: number
+}
+
+type Education = {
+  degree: string
+  institution: string
+  year: string
+  field_of_study?: string | null
+}
+
   type ApiResponse = {
     success: boolean
     resume_data: {
@@ -28,9 +44,12 @@
       job_description: string
       candidate_details: {
         name: string
-        email: string
-        phone: string
-        location?: string
+  email: string
+  phone: string
+  location?: string
+  work_experience?: WorkExperience[]
+  education?: Education[]
+  total_experience_years?: number
       }
       keywords: {
         keywords: KeywordItem[]
@@ -232,6 +251,62 @@ function getScoreRingClasses(score: number): string {
             <span>{candidate.location}</span>
           </div>
         )}
+        {/* Work Experience */}
+{candidate?.work_experience && (
+  <div className="pt-2">
+    <h4 className="font-medium text-primary flex items-center gap-2">
+      <Briefcase className="h-4 w-4 text-muted-foreground" />
+      Work Experience
+    </h4>
+    <div className="mt-2 space-y-2">
+      {candidate.work_experience?.map((exp, index) => (
+        <div key={index} className="border-l-2 border-border pl-3">
+          <p className="font-medium">{exp.role}</p>
+          <p className="text-muted-foreground text-xs">
+            {exp.company} • {exp.duration}
+          </p>
+          {exp.years && (
+            <p className="text-muted-foreground text-xs">
+              ({exp.years} years)
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* Education */}
+{candidate?.education && (
+  <div className="pt-2">
+    <h4 className="font-medium text-primary flex items-center gap-2">
+      <GraduationCap className="h-4 w-4 text-muted-foreground" />
+      Education
+    </h4>
+    <div className="mt-2 space-y-2">
+      {candidate.education?.map((edu, index) => (
+        <div key={index} className="border-l-2 border-border pl-3">
+          <p className="font-medium">{edu.degree}</p>
+          <p className="text-muted-foreground text-xs">{edu.institution}</p>
+          <p className="text-muted-foreground text-xs">{edu.year}</p>
+          {edu.field_of_study && (
+            <p className="text-muted-foreground text-xs">
+              Field: {edu.field_of_study}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{candidate?.total_experience_years && (
+                <div className="flex items-center gap-2 pt-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <span>Total Experience: {candidate.total_experience_years} years</span>
+                </div>
+              )}
+
       </CardContent>
     </Card>
 
