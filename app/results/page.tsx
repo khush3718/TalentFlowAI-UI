@@ -142,6 +142,8 @@ function getScoreRingClasses(score: number): string {
     const downloadReport = async (): Promise<void> => {
   if (!data) return;
 
+  setLoading(true);
+
   try {
     // 1️⃣ Call backend to generate report text
     const response = await fetch(REPORT_DOWNLOAD_URL, {
@@ -211,6 +213,8 @@ function getScoreRingClasses(score: number): string {
   } catch (error) {
     console.error("Error downloading report:", error);
     alert("Failed to generate or download report. Please try again.");
+  }finally{
+    setLoading(false);
   }
 };
 
